@@ -1,91 +1,241 @@
 <!doctype html>
-<html lang="en-UK">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <title>Andrei Samsonon — web development</title>
-  <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Andrey Samsonov — software developer</title>
+  <meta name="description" content="Software developer with 15+ years of Ruby on Rails. Projects, writing, and contacts.">
 
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
+  <meta property="og:title" content="Andrey Samsonov — software developer">
+  <meta property="og:description" content="Software developer with 15+ years of Ruby on Rails. Projects, writing, and contacts.">
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://samsonov.io/">
+  <meta property="og:image" content="https://samsonov.io/avatar.png">
+  <meta name="twitter:card" content="summary">
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
-
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
-
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate" type="application/rss+xml" title="Commit Messages" href="https://msg.samsonov.io/feed.xml">
 
   <style>
     :root {
-      --bg-color: #fcefd8;
-      --text-color: #183a37;
+      color-scheme: light dark;
+      --text: #1a1a1a;
+      --text-secondary: #707070;
+      --background: #fff;
+      --accent: #0066cc;
+      --underline: rgb(0 102 204 / 0.3);
     }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #e6e6e6;
+        --text-secondary: #999;
+        --background: #191919;
+        --accent: #80baff;
+        --underline: rgb(128 186 255 / 0.35);
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
     body {
-      /*font-family: monospace;*/
-      padding: 10%;
-      background: var(--bg-color);
-      font-size: 1.25rem;
-      font-family: sans-serif;
-      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.5;
+      color: var(--text);
+      background: var(--background);
     }
+
     a {
-      color: #b47855;
+      color: var(--accent);
+      text-decoration: underline max(1px, 0.07em) var(--underline);
+      text-underline-offset: 0.2em;
     }
+
     a:hover {
-      color: #cb906d;
+      text-decoration-color: var(--accent);
     }
-    .info-section {
-      padding: 0.5rem 1rem;
-      border: 0.2rem solid #EFD6AC;
-      /*font-family: serif;*/
-      margin: 0 -1.02rem;
-      font-weight: 550;
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
-    .info-section h1 {
-      color: #C44900;
-      font-size: 3rem;
-      margin: 0 0 0.25rem 0;
+
+    ul {
+      list-style: none;
     }
-    .info-section .caption {
-      line-height: 1rem;
-      margin: 1rem 0;
+
+    .page {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 3rem;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 2.5rem clamp(1rem, 6vw, 6rem);
     }
-    .narrative-section {
-      line-height: 1.375
-      /*color: #04151F;*/
-      /*font-family: monospace;*/
+
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
     }
-    .narrative-section .-muted {
-      /*color: #04151F;*/
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .top p {
+      color: var(--text-secondary);
+    }
+
+    .top strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .story {
+      align-self: center;
+      max-width: 26em;
+      font-size: clamp(1.4rem, 2.6vw, 2.4rem);
+      line-height: 1.35;
+      letter-spacing: -0.015em;
+    }
+
+    .story p + p {
+      margin-top: 0.6em;
+    }
+
+    .story .muted {
+      color: var(--text-secondary);
+    }
+
+    .bottom {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem 4rem;
+      font-size: 0.95rem;
+    }
+
+    .label {
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+
+    .bottom li + li {
+      margin-top: 0.2rem;
+    }
+
+    .posts time {
+      display: inline-block;
+      min-width: 5.5em;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 700px) {
+      .page {
+        min-height: 0;
+        gap: 2.5rem;
+        padding-top: 1.5rem;
+      }
+
+      .bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .avatar {
+        width: 64px;
+        height: 64px;
+      }
+
+      .posts time {
+        display: block;
+        font-size: 0.85rem;
+      }
+
+      .posts li + li {
+        margin-top: 0.6rem;
+      }
     }
   </style>
 </head>
 
 <body>
-  <section class="info-section">
-    <h1>Andrei Samsonov</h1>
+  <div class="page">
+    <header class="top">
+      <img src="/avatar.png" alt="" class="avatar" width="96" height="96">
+      <p><strong>Andrey Samsonov</strong>Software developer, Novi Sad, Serbia</p>
+    </header>
 
-    <p class="caption">A full-stack web-developer</p>
-    <p class="caption">Serbia, Novi Sad</p>
-    <p class="caption"><a href="mailto:andrey.samsonov@gmail.com">andrey.samsonov@gmail.com</a></p>
-  </section>
+    <main class="story">
+      <p>For 15 years I built Rails apps for small businesses, from the first call with the client to launch and years of support.</p>
+      <p>Coding agents gave me a second wind. Now I build <a href="https://dropkind.app">DropKind</a>, an iOS app that sends articles and PDFs to Kindle, experiment with AI in language learning, and contribute to <a href="https://github.com/crmne/ruby_llm/pulls?q=is%3Apr+author%3Akryzhovnik+is%3Amerged">RubyLLM</a>, <a href="https://github.com/ruby/irb/pull/1230">IRB</a>, and <a href="https://github.com/rails/rails/pulls?q=is%3Apr+author%3Akryzhovnik+is%3Amerged">Rails</a>.</p>
+      <p class="muted">Open to remote roles and contracts.</p>
+    </main>
 
-  <section class="narrative-section">
-    <p>
-      I am passioned about creating easy-to-use products that break the routine and help people manage their lives. My favorite ingredients for such a product are good design, cutting-edge web technologies, and time-tested tools.
-    </p>
-    <p>
-      Developing and maintaining complex web apps for more 10 than years. My favorite tools, that I used in many projects are Ruby on Rails, PostgreSQL, Svelte.
-      <span class="-muted">I have worked with and still use in my daily work all the following and many more: Sinatra, Hanami, MySQL, SQLite, Redis, React, HTML, CSS, git, Linux, NGINX, Webpack, Memcached</span>
-    </p>
-  </section>
+    <footer class="bottom">
+      <section>
+        <p class="label">Latest from my tech blog, <a href="https://msg.samsonov.io">Commit Messages</a></p>
+        <ul class="posts" id="posts">
+          <li><time datetime="2026-09-26">Sep 2026</time> <a href="https://msg.samsonov.io/2026-09-26-ruby-llm-modes/">Chat Modes: Configuring the LLM for Each Turn</a></li>
+          <li><time datetime="2026-07-28">Jul 2026</time> <a href="https://msg.samsonov.io/2026-07-28-sequence-is-not-structure/">Sequence Is Not Structure: Getting Lost in Long LLM Conversations</a></li>
+          <li><time datetime="2026-07-11">Jul 2026</time> <a href="https://msg.samsonov.io/2026-07-11-zero-downtime-active-storage-bucket-migration/">Moving Active Storage Between Buckets Without 404s</a></li>
+        </ul>
+      </section>
+      <section>
+        <p class="label">Write to me</p>
+        <ul>
+          <li><a href="mailto:andrey.samsonov@gmail.com">andrey.samsonov@gmail.com</a></li>
+          <li><a href="https://t.me/kryzhovnikme">Telegram</a></li>
+          <li><a href="https://www.linkedin.com/in/andreysamsonov/">LinkedIn</a></li>
+        </ul>
+      </section>
+    </footer>
+  </div>
+
+  <script>
+    // Replace the static list with the three newest posts from the blog feed.
+    // On any error the static list stays.
+    fetch("https://msg.samsonov.io/feed.xml")
+      .then((response) => response.ok ? response.text() : Promise.reject(response.status))
+      .then((text) => {
+        const feed = new DOMParser().parseFromString(text, "application/xml")
+        const entries = [...feed.querySelectorAll("entry")].slice(0, 3)
+        if (entries.length === 0) return
+
+        const items = entries.map((entry) => {
+          const published = entry.querySelector("published").textContent
+          const time = document.createElement("time")
+          time.dateTime = published
+          time.textContent = new Date(published).toLocaleDateString("en-US", { month: "short", year: "numeric" })
+
+          const link = document.createElement("a")
+          link.href = entry.querySelector("link[rel='alternate']")?.getAttribute("href") ?? entry.querySelector("link").getAttribute("href")
+          link.textContent = entry.querySelector("title").textContent
+
+          const item = document.createElement("li")
+          item.append(time, " ", link)
+          return item
+        })
+        document.getElementById("posts").replaceChildren(...items)
+      })
+      .catch(() => {})
+  </script>
 </body>
 
 </html>
