@@ -192,9 +192,9 @@
       <section>
         <p class="label">Latest from my tech blog, <a href="https://msg.samsonov.io">Commit Messages</a></p>
         <ul class="posts" id="posts">
-          <li><time datetime="2026-09-26">Sep 2026</time> <a href="https://msg.samsonov.io/2026-09-26-ruby-llm-modes/">Chat Modes: Configuring the LLM for Each Turn</a></li>
+          <li><time datetime="2026-09-30">Sep 2026</time> <a href="https://msg.samsonov.io/2026-09-30-when-a-database-restore-signs-you-in-as-someone-else/">Rails’ Default Authentication Has a Database Restore Problem</a></li>
+          <li><time datetime="2026-09-26"></time> <a href="https://msg.samsonov.io/2026-09-26-ruby-llm-modes/">Chat Modes: Configuring the LLM for Each Turn</a></li>
           <li><time datetime="2026-07-28">Jul 2026</time> <a href="https://msg.samsonov.io/2026-07-28-sequence-is-not-structure/">Sequence Is Not Structure: Getting Lost in Long LLM Conversations</a></li>
-          <li><time datetime="2026-07-11">Jul 2026</time> <a href="https://msg.samsonov.io/2026-07-11-zero-downtime-active-storage-bucket-migration/">Moving Active Storage Between Buckets Without 404s</a></li>
         </ul>
       </section>
       <section>
@@ -218,11 +218,15 @@
         const entries = [...feed.querySelectorAll("entry")].slice(0, 3)
         if (entries.length === 0) return
 
+        // Show the month only on the first post of that month; the empty time keeps the titles aligned.
+        let previousMonth
         const items = entries.map((entry) => {
           const published = entry.querySelector("published").textContent
+          const month = new Date(published).toLocaleDateString("en-US", { month: "short", year: "numeric" })
           const time = document.createElement("time")
           time.dateTime = published
-          time.textContent = new Date(published).toLocaleDateString("en-US", { month: "short", year: "numeric" })
+          if (month !== previousMonth) time.textContent = month
+          previousMonth = month
 
           const link = document.createElement("a")
           link.href = entry.querySelector("link[rel='alternate']")?.getAttribute("href") ?? entry.querySelector("link").getAttribute("href")
